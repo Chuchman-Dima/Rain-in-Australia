@@ -1,183 +1,170 @@
-# 🌧️ Rain in Australia — Prediction
+# 🌧️ Дощ в Австралії — Прогноз
 
-Kaggle competition project to predict next-day rain in Australia based on current weather data.
+Проєкт Kaggle для передбачення дощу на наступний день в Австралії на основі поточних погодних даних.
 
-## 📋 Overview
+## 📋 Огляд
 
-This project implements a machine learning solution to predict whether it will rain tomorrow in Australian cities using historical weather data. The dataset contains 145,460 observations across 23 weather features collected from various Australian locations.
+Цей проєкт реалізує рішення машинного навчання для прогнозування, чи буде дощ завтра в австралійських містах, використовуючи історичні погодні дані. Набір даних містить 145 460 спостережень за 23 погодними ознаками.
 
-**Target Variable:** `RainTomorrow` — Binary classification (Yes/No)
+**Цільова змінна:** `RainTomorrow` — Бінарна класифікація (Yes/No)
 
-## 📊 Dataset Statistics
+## 📊 Статистика набору даних
 
-| Metric | Value |
-|--------|-------|
-| Total Records | 145,460 |
-| Features | 23 |
-| Locations | Multiple Australian cities |
-| Date Range | 2008-2010 |
-| Class Distribution | No: 77.8% / Yes: 22.2% |
+| Показник             | Значення                |
+|----------------------|------------------------|
+| Загальна кількість   | 145 460                |
+| Кількість ознак      | 23                     |
+| Локації              | Декілька міст Австралії|
+| Діапазон дат         | 2008–2010              |
+| Розподіл класів      | Ні: 77,8% / Так: 22,2% |
 
-### Missing Data
+### Відсутні дані
 
-| Feature | Missing (%) |
-|---------|-------------|
-| Sunshine | 48.01% |
-| Evaporation | 43.17% |
-| Cloud3pm | 40.81% |
-| Cloud9am | 38.42% |
-| Pressure9am/3pm | ~10.3% |
-| WindDir/WindGustDir | ~7% |
-| Other features | <5% |
+| Ознака               | Відсутні (%)   |
+|----------------------|---------------|
+| Sunshine             | 48,01%        |
+| Evaporation          | 43,17%        |
+| Cloud3pm             | 40,81%        |
+| Cloud9am             | 38,42%        |
+| Pressure9am/3pm      | ~10,3%        |
+| WindDir/WindGustDir  | ~7%           |
+| Інші ознаки          | <5%           |
 
-## 🔍 Key Features
+## 🔍 Ключові ознаки
 
-### Weather Variables
-- **Temperature**: MinTemp, MaxTemp, Temp9am, Temp3pm
-- **Humidity**: Humidity9am, Humidity3pm
-- **Pressure**: Pressure9am, Pressure3pm
-- **Wind**: WindGustDir, WindGustSpeed, WindDir9am, WindDir3pm, WindSpeed9am, WindSpeed3pm
-- **Precipitation**: Rainfall, Evaporation, Sunshine
-- **Clouds**: Cloud9am, Cloud3pm
-- **Historical**: RainToday
-- **Location**: Location, Date (converted to Month)
+### Погодні змінні
+- **Температура**: MinTemp, MaxTemp, Temp9am, Temp3pm
+- **Вологість**: Humidity9am, Humidity3pm
+- **Тиск**: Pressure9am, Pressure3pm
+- **Вітер**: WindGustDir, WindGustSpeed, WindDir9am, WindDir3pm, WindSpeed9am, WindSpeed3pm
+- **Опади**: Rainfall, Evaporation, Sunshine
+- **Хмари**: Cloud9am, Cloud3pm
+- **Історичні**: RainToday
+- **Локація**: Location, Date (перетворено на місяць)
 
-## 📈 Project Structure
+## 📈 Структура проєкту
 
 ```
 Rain-in-Australia/
-├── Rain in Australia.ipynb    # Main analysis notebook
-├── weatherAUS.csv             # Weather dataset
-└── README.md                  # This file
+├── Rain in Australia.ipynb    # Головний ноутбук з аналізом
+├── weatherAUS.csv             # Набір погодних даних
+└── README.md                  # Цей файл
 ```
 
-## 🛠️ Methodology
+## 🛠️ Методологія
 
-### 1. **Data Loading & EDA**
-- Loaded 145,460 records from weatherAUS.csv
-- Analyzed missing values distribution
-- Visualized target variable distribution and feature relationships
+### 1. **Завантаження даних та EDA**
+- Завантажено 145 460 записів з weatherAUS.csv
+- Проаналізовано розподіл пропущених значень
+- Візуалізовано розподіл цільової змінної та зв'язки між ознаками
 
-### 2. **Feature Engineering**
-- Extracted month from date
-- Encoded categorical variables (Location, WindGustDir, WindDir9am, WindDir3pm, RainToday)
-- Target encoding: Yes→1, No→0
+### 2. **Формування ознак**
+- Виділено місяць з дати
+- Закодовано категоріальні змінні (Location, WindGustDir, WindDir9am, WindDir3pm, RainToday)
+- Кодування цілі: Yes→1, No→0
 
-### 3. **Data Preprocessing**
-- Imputation strategy:
-  - **Numerical features**: Median imputation
-  - **Categorical features**: Most frequent value imputation
-- Label encoding for categorical variables
-- No missing values after preprocessing (verified: 0 nulls)
+### 3. **Передобробка даних**
+- Стратегія імпутації:
+  - **Числові змінні**: заміна на медіану
+  - **Категоріальні змінні**: заміна на найчастіше значення
+- Лейбл-енкодінг для категоріальних змінних
+- Після обробки відсутні значення відсутні (перевірено: 0 null)
 
-### 4. **Exploratory Data Analysis**
+### 4. **Розвідувальний аналіз даних**
 
-**Key Insights:**
-- Strong correlation between humidity levels and rain (higher humidity → higher rain probability)
-- Maximum temperature inversely correlated with rain
-- Class imbalance: ~78% No Rain vs 22% Rain Tomorrow
-- Pressure and humidity at 3pm are strong predictors
+**Основні висновки:**
+- Сильний зв'язок між рівнем вологості та дощем (вища вологість → більша ймовірність дощу)
+- Максимальна температура обернено корелює з дощем
+- Дисбаланс класів: ~78% Без дощу, 22% Дощ завтра
+- Тиск і вологість о 15:00 — сильні предиктори
 
-### 5. **Model Training**
-- Train-test split (default: 80-20)
-- Standardized features (StandardScaler)
-- Models implemented:
-  - **Random Forest Classifier** — Ensemble method for robustness
-  - **Logistic Regression** — Baseline linear model
+### 5. **Навчання моделей**
+- Поділ на тренувальну і тестову вибірки (стандартно: 80–20)
+- Стандартизація ознак (StandardScaler)
+- Реалізовано моделі:
+  - **Random Forest Classifier** — ансамблевий метод для стійкості
+  - **Logistic Regression** — базова лінійна модель
 
-### 6. **Model Evaluation**
-- Metrics:
+### 6. **Оцінка моделей**
+- Метрики:
   - Classification Report (Precision, Recall, F1-Score)
-  - Confusion Matrix
+  - Матриця плутанини
   - ROC-AUC Score
-  - ROC Curve
+  - ROC-крива
 
-## 📊 Results
+## 📊 Результати
 
-### Feature Importance (Expected)
-Top predictors for rain tomorrow:
-1. Humidity levels (9am & 3pm)
-2. Pressure (9am & 3pm)
-3. Maximum temperature
-4. Rainfall today
-5. Cloud coverage
+### Важливість ознак (очікувано)
+Кращі предиктори дощу завтра:
+1. Рівень вологості (9:00 та 15:00)
+2. Тиск (9:00 та 15:00)
+3. Максимальна температура
+4. Дощ сьогодні
+5. Хмарність
 
-### Performance Metrics
-- Both models tested on balanced and imbalanced datasets
-- ROC-AUC used as primary metric due to class imbalance
-- Random Forest typically outperforms Logistic Regression
+### Оцінка моделей
+- Обидві моделі протестовані на збалансованій та незбалансованій вибірках
+- ROC-AUC — основна метрика через дисбаланс класів
+- Random Forest зазвичай перевершує Logistic Regression
 
-## 🚀 Quick Start
+## 🚀 Швидкий старт
 
-### Prerequisites
+### Вимоги
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn
 ```
 
-### Run the Analysis
+### Запуск аналізу
 ```bash
 jupyter notebook "Rain in Australia.ipynb"
 ```
 
-The notebook will:
-1. Load and explore the dataset
-2. Perform data preprocessing
-3. Create visualizations
-4. Train models
-5. Display performance metrics
+Ноутбук виконає:
+1. Завантаження та дослідження даних
+2. Передобробку
+3. Візуалізації
+4. Тренування моделей
+5. Вивід метрик якості
 
-## 📌 Key Findings
+## 📌 Ключові висновки
 
-✅ **High-confidence predictors:**
-- Humidity3pm (strongest predictor)
-- Pressure metrics
-- Temperature range (MinTemp, MaxTemp)
-- RainToday (historical pattern)
+✅ **Найсильніші предиктори:**
+- Humidity3pm (найсильніший)
+- Показники тиску
+- Температурний діапазон (MinTemp, MaxTemp)
+- RainToday (історичний патерн)
 
-⚠️ **Data Quality Issues:**
-- 48% missing values in Sunshine
-- 43% missing values in Evaporation
-- These features dropped/imputed during preprocessing
+⚠️ **Проблеми якості даних:**
+- 48% пропусків у Sunshine
+- 43% пропусків у Evaporation
+- Ці ознаки видалено або імпутовано під час обробки
 
-## 🔮 Future Improvements
+## 🔮 Можливі покращення
 
-- [ ] Feature engineering: rolling averages, seasonal patterns
-- [ ] Hyperparameter tuning (GridSearchCV, RandomizedSearchCV)
-- [ ] Advanced models: XGBoost, LightGBM, Neural Networks
-- [ ] SMOTE for handling class imbalance
-- [ ] Cross-validation strategies (StratifiedKFold)
-- [ ] Feature selection optimization
-- [ ] Location-specific models
-- [ ] Time-series considerations
+- [ ] Розширена генерація ознак: скользячі середні, сезонність
+- [ ] Підбір гіперпараметрів (GridSearchCV, RandomizedSearchCV)
+- [ ] Розширені моделі: XGBoost, LightGBM, Нейронні мережі
+- [ ] SMOTE для роботи з дисбалансом
+- [ ] Перехресна валідація (StratifiedKFold)
+- [ ] Оптимізація відбору ознак
+- [ ] Моделі для окремих локацій
+- [ ] Розгляд часових залежностей
 
-## 📝 Notebook Sections
+## 📝 Структура ноутбука
 
-1. **Imports** — Required libraries
-2. **Data Loading** — CSV import and shape verification
-3. **EDA** — Descriptive statistics and visualizations
-4. **Preprocessing** — Missing value handling and encoding
-5. **Model Training** — Random Forest and Logistic Regression
-6. **Evaluation** — Performance metrics and ROC curves
-7. **Analysis** — Feature importance and insights
+1. **Імпорт бібліотек**
+2. **Завантаження даних** — імпорт CSV і перевірка розміру
+3. **EDA** — описова статистика та візуалізації
+4. **Передобробка** — обробка пропусків та кодування
+5. **Навчання моделей** — Random Forest та Logistic Regression
+6. **Оцінка** — метрики якості та ROC-криві
+7. **Аналіз** — важливість ознак та висновки
 
-## 🌍 Dataset Information
+## 🌍 Інформація про набір даних
 
-**Source:** Kaggle - [Rain in Australia](https://www.kaggle.com/jsphyg/weather-dataset-rattle-package)
+**Джерело:** Kaggle — [Rain in Australia](https://www.kaggle.com/jsphyg/weather-dataset-rattle-package)
 
-**Locations Covered:** Major Australian cities
-- Albury, BadgerysCreek, Cobar, Canberra, Dartmouth, and many others
+**Охоплені локації:** Основні міста Австралії
+- Albury, BadgerysCreek, Cobar, Canberra, Dartmouth та інші
 
-**Date Range:** 2007-2017 (with focus on 2008-2010 in this analysis)
-
-## 👤 Author
-
-**Dima Chuchman**
-
-## 📄 License
-
-This project is for educational and competition purposes.
-
----
-
-**Last Updated:** 2026-05-25  
-**Status:** Active Development
+**Діапазон дат:** 2007–2017 (фокус на 2008–2010)
