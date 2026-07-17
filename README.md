@@ -106,7 +106,7 @@ Rain-in-Australia/
 - ROC-AUC — основна метрика через дисбаланс класів
 - Random Forest зазвичай перевершує Logistic Regression
 
-## 🚀 Швидкий старт
+## Швидкий старт
 
 ### Вимоги
 ```bash
